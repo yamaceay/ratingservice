@@ -26,6 +26,8 @@ build:
     context: src/emailservice
   - image: productcatalogservice
     context: src/productcatalogservice
+  - image: ratingservice
+    context: src/ratingservice
   - image: recommendationservice
     context: src/recommendationservice
   - image: shippingservice

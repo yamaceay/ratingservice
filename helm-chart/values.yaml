@@ -98,6 +98,10 @@ productCatalogService:
   # Specifies an extra latency to any request on productcatalogservice, by default no extra latency.
   extraLatency: ""
 
+ratingService:
+  create: true
+  name: ratingservice
+
 recommendationService:
   create: true
   name: recommendationservice
