@@ -27,7 +27,7 @@ import (
 	"syscall"
 	"time"
 
-	pb "github.com/GoogleCloudPlatform/microservices-demo/src/ratingservice/genproto"
+	pb "github.com/yamaceay/ratingservice/src/ratingservice/genproto"
 	healthpb "google.golang.org/grpc/health/grpc_health_v1"
 
 	"cloud.google.com/go/profiler"
