@@ -2,32 +2,23 @@
     "ratings": [
         {
             "productId": "OLJCESPC7Z",
-            "rating": 4.5,
-            "comments": [
-                "I absolutely love these sunglasses!"
-            ]
+            "value": 4.5,
+            "comment": "I absolutely love these sunglasses!"
         }, 
         {
             "productId": "OLJCESPC7Z",
-            "rating": 5,
-            "comments": [
-                "Best sunglasses I ever had!"
-            ]
+            "value": 5,
+            "comment": "Best sunglasses I ever had!"
         },
         {
             "productId": "OLJCESPC7Z",
-            "rating": 1,
-            "comments": [
-                "Very low quality. Do yourself a favour and get yourself a Ray-Ban.",
-                "The customer support is not working..."
-            ]
+            "value": 1,
+            "comment": "Very low quality. Do yourself a favour and get yourself a Ray-Ban"
         },
         {
             "productId": "66VCHSJNUP",
-            "rating": 4.2,
-            "comments": [
-                "Very cool mug, I loved it!!"
-            ]
+            "value": 4.2,
+            "comment": "Very cool mug, I loved it!!"
         }
     ]
 }
