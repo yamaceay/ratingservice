@@ -82,6 +82,8 @@ spec:
             value: "{{ .Values.cartService.name }}:7070"
           - name: RECOMMENDATION_SERVICE_ADDR
             value: "{{ .Values.recommendationService.name }}:8080"
+          - name: RATING_SERVICE_ADDR
+            value: "{{ .Values.ratingService.name }}:6000"
           - name: SHIPPING_SERVICE_ADDR
             value: "{{ .Values.shippingService.name }}:50051"
           - name: CHECKOUT_SERVICE_ADDR
@@ -200,6 +202,7 @@ spec:
     - ./{{ .Values.currencyService.name }}.{{ .Release.Namespace }}.svc.cluster.local
     - ./{{ .Values.productCatalogService.name }}.{{ .Release.Namespace }}.svc.cluster.local
     - ./{{ .Values.recommendationService.name }}.{{ .Release.Namespace }}.svc.cluster.local
+    - ./{{ .Values.ratingService.name }}.{{ .Release.Namespace }}.svc.cluster.local
     - ./{{ .Values.shippingService.name }}.{{ .Release.Namespace }}.svc.cluster.local
     {{- if .Values.opentelemetryCollector.create }}
     - ./{{ .Values.opentelemetryCollector.name }}.{{ .Release.Namespace }}.svc.cluster.local

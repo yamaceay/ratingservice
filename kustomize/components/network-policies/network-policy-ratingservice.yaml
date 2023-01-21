@@ -12,20 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: kustomize.config.k8s.io/v1alpha1
-kind: Component
-resources:
-- network-policy-deny-all.yaml
-- network-policy-adservice.yaml
-- network-policy-cartservice.yaml
-- network-policy-checkoutservice.yaml
-- network-policy-currencyservice.yaml
-- network-policy-emailservice.yaml
-- network-policy-frontend.yaml
-- network-policy-loadgenerator.yaml
-- network-policy-paymentservice.yaml
-- network-policy-productcatalogservice.yaml
-- network-policy-ratingservice.yaml
-- network-policy-recommendationservice.yaml
-- network-policy-redis.yaml
-- network-policy-shippingservice.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ratingservice
+spec:
+  podSelector:
+    matchLabels:
+      app: ratingservice
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: frontend
+    - podSelector:
+        matchLabels:
+          app: checkoutservice
+    - podSelector:
+        matchLabels:
+          app: frontend
+    ports:
+     - port: 6000
+       protocol: TCP
+  egress:
+  - {}
