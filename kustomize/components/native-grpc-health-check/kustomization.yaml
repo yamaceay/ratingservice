@@ -29,6 +29,8 @@ images:
   newTag: ONLINE_BOUTIQUE_VERSION-native-grpc-probes
 - name: gcr.io/google-samples/microservices-demo/productcatalogservice
   newTag: ONLINE_BOUTIQUE_VERSION-native-grpc-probes
+- name: gcr.io/google-samples/microservices-demo/ratingservice
+  newTag: ONLINE_BOUTIQUE_VERSION-native-grpc-probes
 - name: gcr.io/google-samples/microservices-demo/recommendationservice
   newTag: ONLINE_BOUTIQUE_VERSION-native-grpc-probes
 - name: gcr.io/google-samples/microservices-demo/shippingservice

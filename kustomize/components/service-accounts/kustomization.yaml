@@ -24,6 +24,7 @@ resources:
 - service-account-loadgenerator.yaml
 - service-account-paymentservice.yaml
 - service-account-productcatalogservice.yaml
+- service-account-ratingservice.yaml
 - service-account-recommendationservice.yaml
 - service-account-shippingservice.yaml
 patchesJson6902:
@@ -90,6 +91,13 @@ patchesJson6902:
     - op: replace
       path: /spec/template/spec/serviceAccountName
       value: productcatalogservice
+- target:
+    kind: Deployment
+    name: ratingservice
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/serviceAccountName
+      value: ratingservice
 - target:
     kind: Deployment
     name: recommendationservice

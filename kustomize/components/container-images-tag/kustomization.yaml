@@ -33,6 +33,8 @@ images:
   newTag: CONTAINER_IMAGES_TAG
 - name: gcr.io/google-samples/microservices-demo/productcatalogservice
   newTag: CONTAINER_IMAGES_TAG
+- name: gcr.io/google-samples/microservices-demo/ratingservice
+  newTag: CONTAINER_IMAGES_TAG
 - name: gcr.io/google-samples/microservices-demo/recommendationservice
   newTag: CONTAINER_IMAGES_TAG
 - name: gcr.io/google-samples/microservices-demo/shippingservice

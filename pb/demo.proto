@@ -100,6 +100,32 @@ message SearchProductsResponse {
     repeated Product results = 1;
 }
 
+// ---------------Rating----------------
+
+service RatingService {
+    rpc ListRatings(ListRatingsRequest) returns (ListRatingsResponse) {}
+    rpc AddRating(AddRatingRequest) returns (Empty) {}
+}
+
+message Rating {
+    string user_id = 1;
+    string product_id = 2;
+    float rating = 3;
+    repeated string comments = 4;
+}
+
+message ListRatingsResponse {
+    repeated Rating ratings = 1;
+}
+
+message ListRatingsRequest {
+    string product_id = 1;
+}
+
+message AddRatingRequest {
+    Rating rating = 1;
+}
+
 // ---------------Shipping Service----------
 
 service ShippingService {
