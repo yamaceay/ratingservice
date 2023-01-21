@@ -1,4 +1,4 @@
-module github.com/GoogleCloudPlatform/microservices-demo/src/ratingservice
+module github.com/yamaceay/ratingservice/src/ratingservice
 
 go 1.19
 
