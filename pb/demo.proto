@@ -16,7 +16,7 @@ syntax = "proto3";
 
 package hipstershop;
 
-option go_package = "github.com/GoogleCloudPlatform/microservices-demo/src/ratingservice/genproto";
+option go_package = "./genproto";
 
 // -----------------Cart service-----------------
 
@@ -120,6 +120,10 @@ message GetRatingsResponse {
 message AddRatingsRequest {
    Rating rating = 1; 
 }
+
+message AddRatingsResponse {
+    Rating rating = 1; 
+ }
 
 message Rating {
     float value = 1;

@@ -19,7 +19,6 @@
 PATH=$PATH:$(go env GOPATH)/bin
 protodir=../../pb
 
-protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative -I $protodir $protodir/demo.proto
-
+protoc --go_out=. --go-grpc_out=. -I $protodir $protodir/demo.proto
 
 # [END gke_productcatalogservice_genproto]

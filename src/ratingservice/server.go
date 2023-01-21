@@ -206,7 +206,7 @@ func initProfiling(service, version string) {
 
 type ratings struct{}
 
-func readRatingFile(ratings *pb.GetRatingsResponse) error {
+func readRatingFile(ratingsS *pb.GetRatingsResponse) error {
 	ratingMutex.Lock()
 	defer ratingMutex.Unlock()
 	ratingJSON, err := ioutil.ReadFile("ratings.json")
@@ -214,7 +214,7 @@ func readRatingFile(ratings *pb.GetRatingsResponse) error {
 		log.Fatalf("failed to open rating json file: %v", err)
 		return err
 	}
-	if err := jsonpb.Unmarshal(bytes.NewReader(ratingJSON), ratings); err != nil {
+	if err := jsonpb.Unmarshal(bytes.NewReader(ratingJSON), ratingsS); err != nil {
 		log.Warnf("failed to parse the rating JSON: %v", err)
 		return err
 	}
@@ -222,14 +222,14 @@ func readRatingFile(ratings *pb.GetRatingsResponse) error {
 	return nil
 }
 
-func parseRatings() ([]*pb.Rating, []*pb.Comment) {
-	if reloadRating || (len(rating.Ratings) == 0 && len(rating.Comments) == 0) {
+func parseRatings() ([]*pb.Rating) {
+	if reloadRating || (len(rating.Ratings) == 0) {
 		err := readRatingFile(&rating)
 		if err != nil {
-			return []*pb.Rating{}, []*pb.Comment{}
+			return []*pb.Rating{}
 		}
 	}
-	return rating.Ratings, rating.Comments
+	return rating.Ratings
 }
 
 func (p *ratings) Check(ctx context.Context, req *healthpb.HealthCheckRequest) (*healthpb.HealthCheckResponse, error) {
@@ -240,10 +240,15 @@ func (p *ratings) Watch(req *healthpb.HealthCheckRequest, ws healthpb.Health_Wat
 	return status.Errorf(codes.Unimplemented, "health check via Watch not implemented")
 }
 
-func (p *ratings) GetRatings(context.Context, *pb.Empty) (*pb.GetRatingsResponse, error) {
+func (p *ratings) GetRatings(context.Context, *pb.GetRatingsRequest) (*pb.GetRatingsResponse, error) {
 	time.Sleep(extraLatency)
-	ratings, comments := parseRatings()
-	return &pb.GetRatingsResponse{Ratings: ratings, Comments: comments}, nil
+	ratings := parseRatings()
+	return &pb.GetRatingsResponse{Ratings: ratings}, nil
+}
+
+func (p *ratings) AddRatings(context.Context, *pb.AddRatingsRequest) (*pb.Empty, error) {
+	time.Sleep(extraLatency)
+	return &pb.Empty{}, nil
 }
 
 func mustMapEnv(target *string, envKey string) {
