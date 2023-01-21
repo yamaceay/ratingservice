@@ -63,16 +63,15 @@ func (c *cartServiceClient) EmptyCart(ctx context.Context, in *EmptyCartRequest,
 }
 
 // CartServiceServer is the server API for CartService service.
-// All implementations must embed UnimplementedCartServiceServer
+// All implementations should embed UnimplementedCartServiceServer
 // for forward compatibility
 type CartServiceServer interface {
 	AddItem(context.Context, *AddItemRequest) (*Empty, error)
 	GetCart(context.Context, *GetCartRequest) (*Cart, error)
 	EmptyCart(context.Context, *EmptyCartRequest) (*Empty, error)
-	mustEmbedUnimplementedCartServiceServer()
 }
 
-// UnimplementedCartServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedCartServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedCartServiceServer struct {
 }
 
@@ -85,7 +84,6 @@ func (UnimplementedCartServiceServer) GetCart(context.Context, *GetCartRequest) 
 func (UnimplementedCartServiceServer) EmptyCart(context.Context, *EmptyCartRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EmptyCart not implemented")
 }
-func (UnimplementedCartServiceServer) mustEmbedUnimplementedCartServiceServer() {}
 
 // UnsafeCartServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to CartServiceServer will
@@ -201,21 +199,19 @@ func (c *recommendationServiceClient) ListRecommendations(ctx context.Context, i
 }
 
 // RecommendationServiceServer is the server API for RecommendationService service.
-// All implementations must embed UnimplementedRecommendationServiceServer
+// All implementations should embed UnimplementedRecommendationServiceServer
 // for forward compatibility
 type RecommendationServiceServer interface {
 	ListRecommendations(context.Context, *ListRecommendationsRequest) (*ListRecommendationsResponse, error)
-	mustEmbedUnimplementedRecommendationServiceServer()
 }
 
-// UnimplementedRecommendationServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedRecommendationServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedRecommendationServiceServer struct {
 }
 
 func (UnimplementedRecommendationServiceServer) ListRecommendations(context.Context, *ListRecommendationsRequest) (*ListRecommendationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListRecommendations not implemented")
 }
-func (UnimplementedRecommendationServiceServer) mustEmbedUnimplementedRecommendationServiceServer() {}
 
 // UnsafeRecommendationServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to RecommendationServiceServer will
@@ -307,16 +303,15 @@ func (c *productCatalogServiceClient) SearchProducts(ctx context.Context, in *Se
 }
 
 // ProductCatalogServiceServer is the server API for ProductCatalogService service.
-// All implementations must embed UnimplementedProductCatalogServiceServer
+// All implementations should embed UnimplementedProductCatalogServiceServer
 // for forward compatibility
 type ProductCatalogServiceServer interface {
 	ListProducts(context.Context, *Empty) (*ListProductsResponse, error)
 	GetProduct(context.Context, *GetProductRequest) (*Product, error)
 	SearchProducts(context.Context, *SearchProductsRequest) (*SearchProductsResponse, error)
-	mustEmbedUnimplementedProductCatalogServiceServer()
 }
 
-// UnimplementedProductCatalogServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedProductCatalogServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedProductCatalogServiceServer struct {
 }
 
@@ -329,7 +324,6 @@ func (UnimplementedProductCatalogServiceServer) GetProduct(context.Context, *Get
 func (UnimplementedProductCatalogServiceServer) SearchProducts(context.Context, *SearchProductsRequest) (*SearchProductsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchProducts not implemented")
 }
-func (UnimplementedProductCatalogServiceServer) mustEmbedUnimplementedProductCatalogServiceServer() {}
 
 // UnsafeProductCatalogServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to ProductCatalogServiceServer will
@@ -455,15 +449,14 @@ func (c *ratingServiceClient) AddRatings(ctx context.Context, in *AddRatingsRequ
 }
 
 // RatingServiceServer is the server API for RatingService service.
-// All implementations must embed UnimplementedRatingServiceServer
+// All implementations should embed UnimplementedRatingServiceServer
 // for forward compatibility
 type RatingServiceServer interface {
 	GetRatings(context.Context, *GetRatingsRequest) (*GetRatingsResponse, error)
 	AddRatings(context.Context, *AddRatingsRequest) (*Empty, error)
-	mustEmbedUnimplementedRatingServiceServer()
 }
 
-// UnimplementedRatingServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedRatingServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedRatingServiceServer struct {
 }
 
@@ -473,7 +466,6 @@ func (UnimplementedRatingServiceServer) GetRatings(context.Context, *GetRatingsR
 func (UnimplementedRatingServiceServer) AddRatings(context.Context, *AddRatingsRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddRatings not implemented")
 }
-func (UnimplementedRatingServiceServer) mustEmbedUnimplementedRatingServiceServer() {}
 
 // UnsafeRatingServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to RatingServiceServer will
@@ -577,15 +569,14 @@ func (c *shippingServiceClient) ShipOrder(ctx context.Context, in *ShipOrderRequ
 }
 
 // ShippingServiceServer is the server API for ShippingService service.
-// All implementations must embed UnimplementedShippingServiceServer
+// All implementations should embed UnimplementedShippingServiceServer
 // for forward compatibility
 type ShippingServiceServer interface {
 	GetQuote(context.Context, *GetQuoteRequest) (*GetQuoteResponse, error)
 	ShipOrder(context.Context, *ShipOrderRequest) (*ShipOrderResponse, error)
-	mustEmbedUnimplementedShippingServiceServer()
 }
 
-// UnimplementedShippingServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedShippingServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedShippingServiceServer struct {
 }
 
@@ -595,7 +586,6 @@ func (UnimplementedShippingServiceServer) GetQuote(context.Context, *GetQuoteReq
 func (UnimplementedShippingServiceServer) ShipOrder(context.Context, *ShipOrderRequest) (*ShipOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ShipOrder not implemented")
 }
-func (UnimplementedShippingServiceServer) mustEmbedUnimplementedShippingServiceServer() {}
 
 // UnsafeShippingServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to ShippingServiceServer will
@@ -699,15 +689,14 @@ func (c *currencyServiceClient) Convert(ctx context.Context, in *CurrencyConvers
 }
 
 // CurrencyServiceServer is the server API for CurrencyService service.
-// All implementations must embed UnimplementedCurrencyServiceServer
+// All implementations should embed UnimplementedCurrencyServiceServer
 // for forward compatibility
 type CurrencyServiceServer interface {
 	GetSupportedCurrencies(context.Context, *Empty) (*GetSupportedCurrenciesResponse, error)
 	Convert(context.Context, *CurrencyConversionRequest) (*Money, error)
-	mustEmbedUnimplementedCurrencyServiceServer()
 }
 
-// UnimplementedCurrencyServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedCurrencyServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedCurrencyServiceServer struct {
 }
 
@@ -717,7 +706,6 @@ func (UnimplementedCurrencyServiceServer) GetSupportedCurrencies(context.Context
 func (UnimplementedCurrencyServiceServer) Convert(context.Context, *CurrencyConversionRequest) (*Money, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Convert not implemented")
 }
-func (UnimplementedCurrencyServiceServer) mustEmbedUnimplementedCurrencyServiceServer() {}
 
 // UnsafeCurrencyServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to CurrencyServiceServer will
@@ -811,21 +799,19 @@ func (c *paymentServiceClient) Charge(ctx context.Context, in *ChargeRequest, op
 }
 
 // PaymentServiceServer is the server API for PaymentService service.
-// All implementations must embed UnimplementedPaymentServiceServer
+// All implementations should embed UnimplementedPaymentServiceServer
 // for forward compatibility
 type PaymentServiceServer interface {
 	Charge(context.Context, *ChargeRequest) (*ChargeResponse, error)
-	mustEmbedUnimplementedPaymentServiceServer()
 }
 
-// UnimplementedPaymentServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedPaymentServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedPaymentServiceServer struct {
 }
 
 func (UnimplementedPaymentServiceServer) Charge(context.Context, *ChargeRequest) (*ChargeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Charge not implemented")
 }
-func (UnimplementedPaymentServiceServer) mustEmbedUnimplementedPaymentServiceServer() {}
 
 // UnsafePaymentServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to PaymentServiceServer will
@@ -897,21 +883,19 @@ func (c *emailServiceClient) SendOrderConfirmation(ctx context.Context, in *Send
 }
 
 // EmailServiceServer is the server API for EmailService service.
-// All implementations must embed UnimplementedEmailServiceServer
+// All implementations should embed UnimplementedEmailServiceServer
 // for forward compatibility
 type EmailServiceServer interface {
 	SendOrderConfirmation(context.Context, *SendOrderConfirmationRequest) (*Empty, error)
-	mustEmbedUnimplementedEmailServiceServer()
 }
 
-// UnimplementedEmailServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedEmailServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedEmailServiceServer struct {
 }
 
 func (UnimplementedEmailServiceServer) SendOrderConfirmation(context.Context, *SendOrderConfirmationRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendOrderConfirmation not implemented")
 }
-func (UnimplementedEmailServiceServer) mustEmbedUnimplementedEmailServiceServer() {}
 
 // UnsafeEmailServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to EmailServiceServer will
@@ -983,21 +967,19 @@ func (c *checkoutServiceClient) PlaceOrder(ctx context.Context, in *PlaceOrderRe
 }
 
 // CheckoutServiceServer is the server API for CheckoutService service.
-// All implementations must embed UnimplementedCheckoutServiceServer
+// All implementations should embed UnimplementedCheckoutServiceServer
 // for forward compatibility
 type CheckoutServiceServer interface {
 	PlaceOrder(context.Context, *PlaceOrderRequest) (*PlaceOrderResponse, error)
-	mustEmbedUnimplementedCheckoutServiceServer()
 }
 
-// UnimplementedCheckoutServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedCheckoutServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedCheckoutServiceServer struct {
 }
 
 func (UnimplementedCheckoutServiceServer) PlaceOrder(context.Context, *PlaceOrderRequest) (*PlaceOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PlaceOrder not implemented")
 }
-func (UnimplementedCheckoutServiceServer) mustEmbedUnimplementedCheckoutServiceServer() {}
 
 // UnsafeCheckoutServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to CheckoutServiceServer will
@@ -1069,21 +1051,19 @@ func (c *adServiceClient) GetAds(ctx context.Context, in *AdRequest, opts ...grp
 }
 
 // AdServiceServer is the server API for AdService service.
-// All implementations must embed UnimplementedAdServiceServer
+// All implementations should embed UnimplementedAdServiceServer
 // for forward compatibility
 type AdServiceServer interface {
 	GetAds(context.Context, *AdRequest) (*AdResponse, error)
-	mustEmbedUnimplementedAdServiceServer()
 }
 
-// UnimplementedAdServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedAdServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedAdServiceServer struct {
 }
 
 func (UnimplementedAdServiceServer) GetAds(context.Context, *AdRequest) (*AdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAds not implemented")
 }
-func (UnimplementedAdServiceServer) mustEmbedUnimplementedAdServiceServer() {}
 
 // UnsafeAdServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to AdServiceServer will
