@@ -27,6 +27,8 @@ resources:
  - recommendationservice.yaml
  - redis.yaml
  - shippingservice.yaml
+ - ratingservice.yaml
+ 
 components:
 # - ../kustomize/components/cymbal-branding
 # - ../kustomize/components/google-cloud-operations
