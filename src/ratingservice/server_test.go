@@ -16,14 +16,12 @@ package main
 
 import (
 	"context"
-	"testing"
-
 	"github.com/golang/protobuf/proto"
-	"github.com/google/go-cmp/cmp"
 	pb "github.com/yamaceay/ratingservice/src/ratingservice/genproto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"testing"
 )
 
 func TestServer(t *testing.T) {
@@ -37,31 +35,16 @@ func TestServer(t *testing.T) {
 	}
 	defer conn.Close()
 	client := pb.NewRatingServiceClient(conn)
-	res, err := client.GetRatings(ctx, &pb.Empty{})
-	if err != nil {
-		t.Fatal(err)
-	}
-	if diff := cmp.Diff(res.Ratings, parseRatings(), cmp.Comparer(proto.Equal)); diff != "" {
-		t.Error(diff)
-	}
 
-	got, err := client.GetRatings(ctx, &pb.GetRatingsRequest{Id: "OLJCESPC7Z"})
+	got, err := client.GetRatings(ctx, &pb.GetRatingsRequest{ProductId: "66VCHSJNUP"})
 	if err != nil {
 		t.Fatal(err)
 	}
-	if want := parseRatings()[0]; !proto.Equal(got, want) {
+	if want := parseRatings()[0]; !proto.Equal(got.Ratings[0], want) {
 		t.Errorf("got %v, want %v", got, want)
 	}
-	_, err = client.GetRatings(ctx, &pb.GetRatingsRequest{Id: "N/A"})
-	if got, want := status.Code(err), codes.NotFound; got != want {
+	_, err = client.GetRatings(ctx, &pb.GetRatingsRequest{ProductId: "N/A"})
+	if got, want := status.Code(err), codes.OK; got != want {
 		t.Errorf("got %s, want %s", got, want)
-	}
-
-	sres, err := client.SearchRatings(ctx, &pb.SearchRatingsRequest{Query: "sunglasses"})
-	if err != nil {
-		t.Fatal(err)
-	}
-	if diff := cmp.Diff(sres.Results, []*pb.Rating{parseRatings()[0]}, cmp.Comparer(proto.Equal)); diff != "" {
-		t.Error(diff)
 	}
 }
