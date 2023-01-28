@@ -80,6 +80,9 @@ type frontendServer struct {
 
 	collectorAddr string
 	collectorConn *grpc.ClientConn
+
+	ratingSvcAddr string
+	ratingSvcConn *grpc.ClientConn
 }
 
 func main() {
@@ -124,6 +127,8 @@ func main() {
 	mustMapEnv(&svc.checkoutSvcAddr, "CHECKOUT_SERVICE_ADDR")
 	mustMapEnv(&svc.shippingSvcAddr, "SHIPPING_SERVICE_ADDR")
 	mustMapEnv(&svc.adSvcAddr, "AD_SERVICE_ADDR")
+	mustMapEnv(&svc.ratingSvcAddr, "RATING_SERVICE_ADDR")
+
 
 	mustConnGRPC(ctx, &svc.currencySvcConn, svc.currencySvcAddr)
 	mustConnGRPC(ctx, &svc.productCatalogSvcConn, svc.productCatalogSvcAddr)
@@ -132,6 +137,10 @@ func main() {
 	mustConnGRPC(ctx, &svc.shippingSvcConn, svc.shippingSvcAddr)
 	mustConnGRPC(ctx, &svc.checkoutSvcConn, svc.checkoutSvcAddr)
 	mustConnGRPC(ctx, &svc.adSvcConn, svc.adSvcAddr)
+	mustConnGRPC(ctx, &svc.ratingSvcConn, svc.ratingSvcAddr)
+
+	fmt.Println(svc.ratingSvcConn, svc.ratingSvcAddr)
+
 
 	r := mux.NewRouter()
 	r.HandleFunc("/", svc.homeHandler).Methods(http.MethodGet, http.MethodHead)
