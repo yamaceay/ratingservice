@@ -204,9 +204,7 @@ func initProfiling(service, version string) {
 	log.Warn("could not initialize Stackdriver profiler after retrying, giving up")
 }
 
-type ratings struct {
-	pb.UnimplementedRatingServiceServer
-}
+type ratings struct {}
 
 func readRatingFile(ratingsS *pb.GetRatingsResponse) error {
 	ratingMutex.Lock()
