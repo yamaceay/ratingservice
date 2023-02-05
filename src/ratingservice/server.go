@@ -19,7 +19,6 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"net"
 	"os"
 	"os/signal"
@@ -211,7 +210,7 @@ type ratings struct{}
 func readRatingFile(ratingsS *pb.GetRatingsResponse) error {
 	ratingMutex.Lock()
 	defer ratingMutex.Unlock()
-	ratingJSON, err := ioutil.ReadFile("ratings.json")
+	ratingJSON, err := os.ReadFile("ratings.json")
 	if err != nil {
 		log.Fatalf("failed to open rating json file: %v", err)
 		return err
@@ -256,6 +255,15 @@ func (p *ratings) AddRatings(ctx context.Context, rq *pb.AddRatingsRequest) (*pb
 	fmt.Println("AddRatings called")
 	fmt.Println("Ratings: ", rq.Rating)
 	ratingsByProduct[rq.Rating.ProductId] = append(ratingsByProduct[rq.Rating.ProductId], rq.Rating)
+	// jsonString, err := json.Marshal(ratingsByProduct)
+	// if err != nil {
+	// 	fmt.Println("Error marshalling json: ", err)
+	// }
+	// const filePath = path.join("/tmp", "data.json")
+	// err = os.WriteFile("ratingsByProduct.json", jsonString, 0644)
+	// if err != nil {
+	// 	fmt.Println("Error writing to file: ", err)
+	// }
 	time.Sleep(extraLatency)
 	return &pb.Empty{}, nil
 }
