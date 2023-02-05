@@ -18,7 +18,7 @@ import (
 	"context"
 	"time"
 
-	pb "github.com/GoogleCloudPlatform/microservices-demo/src/frontend/genproto"
+	pb "github.com/yamaceay/ratingservice/src/frontend/genproto"
 
 	"github.com/pkg/errors"
 )
@@ -52,6 +52,12 @@ func (fe *frontendServer) getProduct(ctx context.Context, id string) (*pb.Produc
 	resp, err := pb.NewProductCatalogServiceClient(fe.productCatalogSvcConn).
 		GetProduct(ctx, &pb.GetProductRequest{Id: id})
 	return resp, err
+}
+
+func (fe *frontendServer) getRatings(ctx context.Context, id string) ([]*pb.Rating, error) {
+	resp, err := pb.NewRatingServiceClient(fe.ratingSvcConn).
+		GetRatings(ctx, &pb.GetRatingsRequest{ProductId: id})
+	return resp.GetRatings(), err
 }
 
 func (fe *frontendServer) getCart(ctx context.Context, userID string) ([]*pb.CartItem, error) {
