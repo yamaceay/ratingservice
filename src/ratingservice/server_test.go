@@ -36,12 +36,21 @@ func TestServer(t *testing.T) {
 	defer conn.Close()
 	client := pb.NewRatingServiceClient(conn)
 
-	got, err := client.GetRatings(ctx, &pb.GetRatingsRequest{ProductId: "66VCHSJNUP"})
+	got, err := client.GetRatings(ctx, &pb.GetRatingsRequest{ProductId: "OLJCESPC7Z"})
 	if err != nil {
 		t.Fatal(err)
 	}
-	if want := parseRatings()[0]; !proto.Equal(got.Ratings[0], want) {
-		t.Errorf("got %v, want %v", got, want)
+	for i := 0; i < 3; i++ {
+		if want := parseRatings()[i]; !proto.Equal(got.Ratings[i], want) {
+			t.Errorf("got %v, want %v", got, want)
+		}
+	}
+	got1, err1 := client.GetRatings(ctx, &pb.GetRatingsRequest{ProductId: "66VCHSJNUP"})
+	if err1 != nil {
+		t.Fatal(err1)
+	}
+	if want1 := parseRatings()[0]; !proto.Equal(got1.Ratings[0], want1) {
+		t.Errorf("got %v, want %v", got1, want1)
 	}
 	_, err = client.GetRatings(ctx, &pb.GetRatingsRequest{ProductId: "N/A"})
 	if got, want := status.Code(err), codes.OK; got != want {
