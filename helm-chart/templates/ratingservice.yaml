@@ -186,8 +186,8 @@ spec:
     to:
     - operation:
         paths:
-        - /hipstershop.ratingService/GetRatings
-        - /hipstershop.ratingService/AddRatings
+        - /hipstershop.RatingService/GetRatings
+        - /hipstershop.RatingService/AddRatings
         methods:
         - POST
         ports:

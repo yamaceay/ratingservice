@@ -242,12 +242,14 @@ func (p *ratings) Watch(req *healthpb.HealthCheckRequest, ws healthpb.Health_Wat
 
 func (p *ratings) GetRatings(context.Context, *pb.GetRatingsRequest) (*pb.GetRatingsResponse, error) {
 	time.Sleep(extraLatency)
+	fmt.Print(p)
 	ratings := parseRatings()
 	return &pb.GetRatingsResponse{Ratings: ratings}, nil
 }
 
 func (p *ratings) AddRatings(context.Context, *pb.AddRatingsRequest) (*pb.Empty, error) {
 	time.Sleep(extraLatency)
+	fmt.Print(p)
 	return &pb.Empty{}, nil
 }
 
