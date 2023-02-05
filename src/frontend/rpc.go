@@ -55,7 +55,7 @@ func (fe *frontendServer) getProduct(ctx context.Context, id string) (*pb.Produc
 }
 
 func (fe *frontendServer) getRatings(ctx context.Context, id string) ([]*pb.Rating, error) {
-	resp, err := pb.NewRatingServiceClient(fe.productCatalogSvcConn).
+	resp, err := pb.NewRatingServiceClient(fe.ratingSvcConn).
 		GetRatings(ctx, &pb.GetRatingsRequest{ProductId: id})
 	return resp.GetRatings(), err
 }

@@ -161,7 +161,7 @@ func (fe *frontendServer) productHandler(w http.ResponseWriter, r *http.Request)
 
 	ratings, err := fe.getRatings(r.Context(), id)
 	if err != nil {
-		renderHTTPError(log, r, w, errors.Wrap(err, "could not retrieve product"), http.StatusInternalServerError)
+		renderHTTPError(log, r, w, errors.Wrap(err, "could not retrieve ratings"), http.StatusInternalServerError)
 		return
 	}
 	fmt.Println(ratings)

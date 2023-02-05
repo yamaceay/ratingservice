@@ -129,6 +129,7 @@ func main() {
 	mustMapEnv(&svc.adSvcAddr, "AD_SERVICE_ADDR")
 	mustMapEnv(&svc.ratingSvcAddr, "RATING_SERVICE_ADDR")
 
+	fmt.Println("RATING_SERVICE_ADDR: ", svc.ratingSvcAddr)
 
 	mustConnGRPC(ctx, &svc.currencySvcConn, svc.currencySvcAddr)
 	mustConnGRPC(ctx, &svc.productCatalogSvcConn, svc.productCatalogSvcAddr)
@@ -139,8 +140,8 @@ func main() {
 	mustConnGRPC(ctx, &svc.adSvcConn, svc.adSvcAddr)
 	mustConnGRPC(ctx, &svc.ratingSvcConn, svc.ratingSvcAddr)
 
-	fmt.Println(svc.ratingSvcConn, svc.ratingSvcAddr)
-
+	fmt.Println("productcat ", svc.productCatalogSvcConn)
+	fmt.Println("ratingserviceconn ", svc.ratingSvcConn)
 
 	r := mux.NewRouter()
 	r.HandleFunc("/", svc.homeHandler).Methods(http.MethodGet, http.MethodHead)

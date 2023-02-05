@@ -14,11 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START gke_productcatalogservice_genproto]
+# [START gke_ratingservice_genproto]
 
 PATH=$PATH:$(go env GOPATH)/bin
 protodir=../../pb
 
 protoc --go_out=. --go-grpc_out=. --go-grpc_opt=require_unimplemented_servers=false -I $protodir $protodir/demo.proto
 
-# [END gke_productcatalogservice_genproto]
+# [END gke_ratingservice_gexnproto]
