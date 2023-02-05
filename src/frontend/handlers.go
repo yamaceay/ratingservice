@@ -433,6 +433,35 @@ func (fe *frontendServer) setCurrencyHandler(w http.ResponseWriter, r *http.Requ
 	w.WriteHeader(http.StatusFound)
 }
 
+func (fe *frontendServer) addRatingHandler(w http.ResponseWriter, r *http.Request) {
+	log := r.Context().Value(ctxKeyLog{}).(logrus.FieldLogger)
+	value, err := strconv.ParseFloat(r.FormValue("rating"), 32)
+	if err != nil {
+		renderHTTPError(log, r, w, errors.Wrap(err, "wrong rating format"), http.StatusBadRequest)
+		return
+	}
+	username := r.FormValue("username")
+	comment := r.FormValue("comment")
+	rating := &pb.Rating{
+		UserId:  username,
+		Value:   float32(value),
+		Comment: &comment,
+	}
+	_, err = pb.NewRatingServiceClient(fe.ratingSvcConn).AddRatings(r.Context(), &pb.AddRatingsRequest{
+		Rating: rating,
+	})
+	if err != nil {
+		renderHTTPError(log, r, w, errors.Wrap(err, "failed to add rating"), http.StatusInternalServerError)
+		return
+	}
+	referer := r.Header.Get("referer")
+	if referer == "" {
+		referer = "/"
+	}
+	w.Header().Set("Location", referer)
+	w.WriteHeader(http.StatusFound)
+}
+
 // chooseAd queries for advertisements available and randomly chooses one, if
 // available. It ignores the error retrieving the ad since it is not critical.
 func (fe *frontendServer) chooseAd(ctx context.Context, ctxKeys []string, log logrus.FieldLogger) *pb.Ad {

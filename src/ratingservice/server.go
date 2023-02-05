@@ -252,7 +252,9 @@ func (p *ratings) GetRatings(ctx context.Context, rq *pb.GetRatingsRequest) (*pb
 	return &pb.GetRatingsResponse{Ratings: ratings}, nil
 }
 
-func (p *ratings) AddRatings(context.Context, *pb.AddRatingsRequest) (*pb.Empty, error) {
+func (p *ratings) AddRatings(ctx context.Context, rq *pb.AddRatingsRequest) (*pb.Empty, error) {
+	fmt.Println("AddRatings called")
+	fmt.Println("Ratings: ", rq.Rating)
 	time.Sleep(extraLatency)
 	return &pb.Empty{}, nil
 }
