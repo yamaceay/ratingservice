@@ -1,0 +1,27 @@
+{{ define "ratings" }}
+<section class="ratings">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-10 offset-xl-1">
+                <h2>Reviews</h2>
+                <div class="reviews-section">
+                    {{ range . }}
+                    <div class="review">
+                        <div class="rating">
+                            <span class="value">{{ .Value }}/5</span>
+                        </div>
+                        <div class="user-details">
+                            <span class="username">{{ .UserId }}</span>
+                        </div>
+                        <div class="comment">
+                            <p>{{ .Comment }}</p>
+                        </div>
+                    </div>
+                    {{ end }}
+                    <!-- Add more review divs here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{{ end }}

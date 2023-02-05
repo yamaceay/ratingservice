@@ -1,24 +1,40 @@
 {
     "ratings": [
         {
+            "userId": "Joe Mama",
             "productId": "OLJCESPC7Z",
             "value": 4.5,
             "comment": "I absolutely love these sunglasses!"
-        }, 
+        },
         {
+            "userId": "Ben Dover",
             "productId": "OLJCESPC7Z",
             "value": 5,
             "comment": "Best sunglasses I ever had!"
         },
         {
+            "userId": "Odej Kao",
             "productId": "OLJCESPC7Z",
             "value": 1,
             "comment": "Very low quality. Do yourself a favour and get yourself a Ray-Ban"
         },
         {
+            "userId": "Fjoni Albaner",
             "productId": "66VCHSJNUP",
             "value": 4.2,
-            "comment": "Very cool mug, I loved it!!"
+            "comment": "Stabil"
+        },
+        {
+            "userId": "Stan Lee",
+            "productId": "1YMWWN1N4O",
+            "value": 4.2,
+            "comment": "wack af, not real gold"
+        },
+        {
+            "userId": "Yamac Ehren Ay",
+            "productId": "L9ECAV7KIM",
+            "value": 3.7,
+            "comment": "BVG approved"
         }
     ]
 }

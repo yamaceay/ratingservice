@@ -55,6 +55,11 @@
     </div>
   </div>
   <div>
+    {{ if $.ratings}}
+      {{ template "ratings" $.ratings }}
+    {{ end }}
+  </div>
+  <div>
     {{ if $.recommendations}}
       {{ template "recommendations" $.recommendations }}
     {{ end }}

@@ -204,6 +204,7 @@ func (fe *frontendServer) productHandler(w http.ResponseWriter, r *http.Request)
 		"currencies":        currencies,
 		"product":           product,
 		"recommendations":   recommendations,
+		"ratings":           ratings,
 		"cart_size":         cartSize(cart),
 		"platform_css":      plat.css,
 		"platform_name":     plat.provider,

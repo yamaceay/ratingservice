@@ -16,7 +16,8 @@
 
 /* General */
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -38,11 +39,12 @@ header {
 This allows the sub-navbar (white strip containing logo)
 to be as wide as the browser window.
 */
-header > div:nth-child(2).navbar.sub-navbar {
+header>div:nth-child(2).navbar.sub-navbar {
   padding-left: 0;
   padding-right: 0;
 }
-header > div:nth-child(2) > .container {
+
+header>div:nth-child(2)>.container {
   max-width: none;
 }
 
@@ -124,7 +126,8 @@ header .icon.search-icon {
 
 /* The currency drop-down. */
 
-header img.currency-icon, header span.currency-icon {
+header img.currency-icon,
+header span.currency-icon {
   position: relative;
   left: 35px;
   top: -1px;
@@ -191,10 +194,11 @@ header .navbar.sub-navbar {
   padding-top: 0;
   padding-bottom: 0;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  z-index: 1; /* Need this to see the box-shadow on the home page. */
+  z-index: 1;
+  /* Need this to see the box-shadow on the home page. */
 }
 
-header .navbar.sub-navbar > .container {
+header .navbar.sub-navbar>.container {
   padding-left: 26px;
   padding-right: 26px;
 }
@@ -283,12 +287,15 @@ main {
 
 @media (min-width: 992px) {
   .home .container-fluid {
-    height: calc(100vh - 91px); /* 91px is the height of the top/header bars. */
+    height: calc(100vh - 91px);
+    /* 91px is the height of the top/header bars. */
   }
-  .home .container-fluid > .row > .col-4 {
+
+  .home .container-fluid>.row>.col-4 {
     height: calc(100vh - 91px);
   }
-  .home .container-fluid > .row > .col-lg-8 {
+
+  .home .container-fluid>.row>.col-lg-8 {
     height: calc(100vh - 91px);
     overflow-y: scroll;
   }
@@ -318,7 +325,7 @@ main {
   padding-right: 10%;
 }
 
-.hot-product-card  {
+.hot-product-card {
   margin-bottom: 52px;
   padding-left: 16px;
   padding-right: 16px;
@@ -339,7 +346,7 @@ main {
   font-size: 14px;
 }
 
-.hot-product-card > a:first-child {
+.hot-product-card>a:first-child {
   position: relative;
   display: block;
 }
@@ -399,7 +406,7 @@ similar to that of the hot-products-row.
   background-color: #F9F9F9;
 }
 
-.h-product > .row {
+.h-product>.row {
   align-items: flex-end;
 }
 
@@ -568,7 +575,8 @@ If we ever decide to create a separate Cymbal CSS library for Cymbal components,
 the rules below could be extracted.
 */
 
-.cymbal-button-primary, .cymbal-button-secondary {
+.cymbal-button-primary,
+.cymbal-button-secondary {
   display: inline-block;
   border: solid 1px #CE0631;
   padding: 8px 16px;
@@ -578,8 +586,10 @@ the rules below could be extracted.
   cursor: pointer;
 }
 
-.cymbal-button-primary:focus, .cymbal-button-secondary:focus {
-  outline: none; /* To override browser (Chrome) default blue outline. */
+.cymbal-button-primary:focus,
+.cymbal-button-secondary:focus {
+  outline: none;
+  /* To override browser (Chrome) default blue outline. */
 }
 
 .cymbal-button-primary {
@@ -625,7 +635,8 @@ the rules below could be extracted.
   margin: 0;
   padding: 8px 16px 0 16px;
   font-size: 12px;
-  line-height: 1.8em; /* Without this, there might be a 1px gap underneath. */
+  line-height: 1.8em;
+  /* Without this, there might be a 1px gap underneath. */
   font-weight: normal;
   border-radius: 4px 4px 0px 0px;
   color: #5C6063;
@@ -650,3 +661,53 @@ the rules below could be extracted.
   width: 10px;
   height: 5px;
 }
+
+.reviews-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+
+.ratings .container {
+  max-width: 1174px;
+}
+
+@media (max-width: 992px) {
+  .ratings .container {
+    max-width: none;
+  }
+}
+
+.ratings h2 {
+  border-top: solid 1px;
+  padding: 40px 0;
+  font-weight: normal;
+  text-align: center;
+}
+.ratings .review {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  padding: 20px;
+  border: 1px solid gray;
+  margin-bottom: 20px;
+}
+
+.ratings .rating {
+  font-size: 20px;
+}
+
+.ratings .user-details {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.ratings .comment {
+  font-size: 16px;
+  margin-top: 10px;
+}
+
