@@ -204,7 +204,8 @@ func (fe *frontendServer) productHandler(w http.ResponseWriter, r *http.Request)
 		"currencies":        currencies,
 		"product":           product,
 		"recommendations":   recommendations,
-		"ratings":           ratings,
+		"ratings":       ratings,
+		"addRating":         product,
 		"cart_size":         cartSize(cart),
 		"platform_css":      plat.css,
 		"platform_name":     plat.provider,
@@ -435,6 +436,7 @@ func (fe *frontendServer) setCurrencyHandler(w http.ResponseWriter, r *http.Requ
 
 func (fe *frontendServer) addRatingHandler(w http.ResponseWriter, r *http.Request) {
 	log := r.Context().Value(ctxKeyLog{}).(logrus.FieldLogger)
+	id := mux.Vars(r)["id"]
 	value, err := strconv.ParseFloat(r.FormValue("rating"), 32)
 	if err != nil {
 		renderHTTPError(log, r, w, errors.Wrap(err, "wrong rating format"), http.StatusBadRequest)
@@ -443,9 +445,10 @@ func (fe *frontendServer) addRatingHandler(w http.ResponseWriter, r *http.Reques
 	username := r.FormValue("username")
 	comment := r.FormValue("comment")
 	rating := &pb.Rating{
-		UserId:  username,
-		Value:   float32(value),
-		Comment: &comment,
+		ProductId: id,
+		UserId:    username,
+		Value:     float32(value),
+		Comment:   &comment,
 	}
 	_, err = pb.NewRatingServiceClient(fe.ratingSvcConn).AddRatings(r.Context(), &pb.AddRatingsRequest{
 		Rating: rating,

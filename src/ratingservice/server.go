@@ -255,6 +255,7 @@ func (p *ratings) GetRatings(ctx context.Context, rq *pb.GetRatingsRequest) (*pb
 func (p *ratings) AddRatings(ctx context.Context, rq *pb.AddRatingsRequest) (*pb.Empty, error) {
 	fmt.Println("AddRatings called")
 	fmt.Println("Ratings: ", rq.Rating)
+	ratingsByProduct[rq.Rating.ProductId] = append(ratingsByProduct[rq.Rating.ProductId], rq.Rating)
 	time.Sleep(extraLatency)
 	return &pb.Empty{}, nil
 }

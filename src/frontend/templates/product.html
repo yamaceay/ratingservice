@@ -56,16 +56,19 @@
   </div>
   <div>
     {{ if $.ratings}}
-      {{ template "ratings" $.ratings }}
+    {{ template "ratings" $.ratings }}
     {{ end }}
   </div>
   <div>
+    {{ template "addRating" $.product }}
+  </div>
+  <div>
     {{ if $.recommendations}}
-      {{ template "recommendations" $.recommendations }}
+    {{ template "recommendations" $.recommendations }}
     {{ end }}
   </div>
   <div class="ad">
-   {{ with $.ad }}{{ template "text_ad" . }}{{ end }}
+    {{ with $.ad }}{{ template "text_ad" . }}{{ end }}
   </div>
 </main>
 {{ template "footer" . }}
