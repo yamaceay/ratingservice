@@ -16,13 +16,9 @@ package main
 
 import (
 	"context"
-	// "github.com/golang/protobuf/proto"
 	pb "github.com/yamaceay/ratingservice/src/ratingservice/genproto"
 	"google.golang.org/grpc"
-	// "google.golang.org/grpc/codes"
-	// "google.golang.org/grpc/status"
 	"testing"
-	// "fmt"
 	"github.com/golang/protobuf/proto"
 )
 
