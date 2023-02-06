@@ -265,6 +265,7 @@ func (p *ratings) AddRatings(ctx context.Context, rq *pb.AddRatingsRequest) (*pb
 	// 	fmt.Println("Error writing to file: ", err)
 	// }
 	time.Sleep(extraLatency)
+	fmt.Print(p)
 	return &pb.Empty{}, nil
 }
 
