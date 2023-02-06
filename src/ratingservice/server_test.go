@@ -16,12 +16,15 @@ package main
 
 import (
 	"context"
-	"github.com/golang/protobuf/proto"
+	// "github.com/golang/protobuf/proto"
 	pb "github.com/yamaceay/ratingservice/src/ratingservice/genproto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"testing"
+	"fmt"
+	"proto"
+	"reflect"
 )
 
 func TestServer(t *testing.T) {
@@ -40,16 +43,24 @@ func TestServer(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for i := 0; i < 3; i++ {
-		if want := parseRatings()[i]; !proto.Equal(got.Ratings[i], want) {
-			t.Errorf("got %v, want %v", got, want)
-		}
+	parsedRatings, _ := parseRatings()
+	want := parsedRatings["OLJCESPC7Z"]
+	fmt.Printf("Wanted parsed from ratings: %v", want)
+	fmt.Printf("Type of want %v", reflect.TypeOf(want))
+	fmt.Printf("Type of got %v", reflect.TypeOf(got))
+
+	if proto.Equal(got, want[0]){
+		fmt.Print("This was correct")
+	}
+
+	if want, _ := parseRatings(); 1 == 1{
+		t.Errorf("got %v, want %v", got, want)
 	}
 	got1, err1 := client.GetRatings(ctx, &pb.GetRatingsRequest{ProductId: "66VCHSJNUP"})
 	if err1 != nil {
 		t.Fatal(err1)
 	}
-	if want1 := parseRatings()[0]; !proto.Equal(got1.Ratings[0], want1) {
+	if want1, _ := parseRatings(); 1 == 1{
 		t.Errorf("got %v, want %v", got1, want1)
 	}
 	_, err = client.GetRatings(ctx, &pb.GetRatingsRequest{ProductId: "N/A"})
