@@ -1,24 +1,40 @@
 {
     "ratings": [
         {
+            "userId": "Joe Rogan",
             "productId": "OLJCESPC7Z",
             "value": 4.5,
-            "comment": "I absolutely love these sunglasses!"
-        }, 
+            "comment": "Hunting season is coming up, so I bought these to protect my eyes from the sun. They are very comfortable and I can see very well through them. I would recommend them to anyone who is looking for a good pair of sunglasses."
+        },
         {
+            "userId": "Mark Cuban",
             "productId": "OLJCESPC7Z",
             "value": 5,
-            "comment": "Best sunglasses I ever had!"
+            "comment": "You have a deal! I will buy these sunglasses from you."
         },
         {
+            "userId": "Lex Fridman",
             "productId": "OLJCESPC7Z",
             "value": 1,
-            "comment": "Very low quality. Do yourself a favour and get yourself a Ray-Ban"
+            "comment": "These sunglasses spread love and empathy. I love them."
         },
         {
+            "userId": "Fjonito",
             "productId": "66VCHSJNUP",
             "value": 4.2,
-            "comment": "Very cool mug, I loved it!!"
+            "comment": "Stabiler tanktop. Trage ihn gerne im Sommer."
+        },
+        {
+            "userId": "Stan Lee",
+            "productId": "1YMWWN1N4O",
+            "value": 4.2,
+            "comment": "Nice watch. Not real gold though."
+        },
+        {
+            "userId": "Yamac Ehren Ay",
+            "productId": "L9ECAV7KIM",
+            "value": 3.7,
+            "comment": "BVG ist ein guter Anbieter. Ich habe keine Probleme mit dem Produkt."
         }
     ]
 }

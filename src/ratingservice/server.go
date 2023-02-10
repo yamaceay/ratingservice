@@ -19,7 +19,6 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"net"
 	"os"
 	"os/signal"
@@ -53,7 +52,8 @@ var (
 
 	reloadRating bool
 
-	port = "6000"
+	port             = "6000"
+	ratingsByProduct map[string][]*pb.Rating
 )
 
 func init() {
@@ -68,7 +68,8 @@ func init() {
 	}
 	log.Out = os.Stdout
 	ratingMutex = &sync.Mutex{}
-	err := readRatingFile(&rating)
+	var err error
+	ratingsByProduct, err = parseRatings()
 	if err != nil {
 		log.Warnf("could not parse rating")
 	}
@@ -204,12 +205,12 @@ func initProfiling(service, version string) {
 	log.Warn("could not initialize Stackdriver profiler after retrying, giving up")
 }
 
-type ratings struct {}
+type ratings struct{}
 
 func readRatingFile(ratingsS *pb.GetRatingsResponse) error {
 	ratingMutex.Lock()
 	defer ratingMutex.Unlock()
-	ratingJSON, err := ioutil.ReadFile("ratings.json")
+	ratingJSON, err := os.ReadFile("ratings.json")
 	if err != nil {
 		log.Fatalf("failed to open rating json file: %v", err)
 		return err
@@ -222,14 +223,18 @@ func readRatingFile(ratingsS *pb.GetRatingsResponse) error {
 	return nil
 }
 
-func parseRatings() []*pb.Rating {
+func parseRatings() (map[string][]*pb.Rating, error) {
 	if reloadRating || (len(rating.Ratings) == 0) {
 		err := readRatingFile(&rating)
 		if err != nil {
-			return []*pb.Rating{}
+			return make(map[string][]*pb.Rating), err
 		}
 	}
-	return rating.Ratings
+	ratingsMap := make(map[string][]*pb.Rating)
+	for _, r := range rating.Ratings {
+		ratingsMap[r.ProductId] = append(ratingsMap[r.ProductId], r)
+	}
+	return ratingsMap, nil
 }
 
 func (p *ratings) Check(ctx context.Context, req *healthpb.HealthCheckRequest) (*healthpb.HealthCheckResponse, error) {
@@ -240,14 +245,25 @@ func (p *ratings) Watch(req *healthpb.HealthCheckRequest, ws healthpb.Health_Wat
 	return status.Errorf(codes.Unimplemented, "health check via Watch not implemented")
 }
 
-func (p *ratings) GetRatings(context.Context, *pb.GetRatingsRequest) (*pb.GetRatingsResponse, error) {
+func (p *ratings) GetRatings(ctx context.Context, rq *pb.GetRatingsRequest) (*pb.GetRatingsResponse, error) {
 	time.Sleep(extraLatency)
-	fmt.Print(p)
-	ratings := parseRatings()
+	ratings := ratingsByProduct[rq.ProductId]
 	return &pb.GetRatingsResponse{Ratings: ratings}, nil
 }
 
-func (p *ratings) AddRatings(context.Context, *pb.AddRatingsRequest) (*pb.Empty, error) {
+func (p *ratings) AddRatings(ctx context.Context, rq *pb.AddRatingsRequest) (*pb.Empty, error) {
+	fmt.Println("AddRatings called")
+	fmt.Println("Ratings: ", rq.Rating)
+	ratingsByProduct[rq.Rating.ProductId] = append(ratingsByProduct[rq.Rating.ProductId], rq.Rating)
+	// jsonString, err := json.Marshal(ratingsByProduct)
+	// if err != nil {
+	// 	fmt.Println("Error marshalling json: ", err)
+	// }
+	// const filePath = path.join("/tmp", "data.json")
+	// err = os.WriteFile("ratingsByProduct.json", jsonString, 0644)
+	// if err != nil {
+	// 	fmt.Println("Error writing to file: ", err)
+	// }
 	time.Sleep(extraLatency)
 	fmt.Print(p)
 	return &pb.Empty{}, nil

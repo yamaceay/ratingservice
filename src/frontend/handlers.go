@@ -204,6 +204,8 @@ func (fe *frontendServer) productHandler(w http.ResponseWriter, r *http.Request)
 		"currencies":        currencies,
 		"product":           product,
 		"recommendations":   recommendations,
+		"ratings":       ratings,
+		"addRating":         product,
 		"cart_size":         cartSize(cart),
 		"platform_css":      plat.css,
 		"platform_name":     plat.provider,
@@ -423,6 +425,37 @@ func (fe *frontendServer) setCurrencyHandler(w http.ResponseWriter, r *http.Requ
 			Value:  cur,
 			MaxAge: cookieMaxAge,
 		})
+	}
+	referer := r.Header.Get("referer")
+	if referer == "" {
+		referer = "/"
+	}
+	w.Header().Set("Location", referer)
+	w.WriteHeader(http.StatusFound)
+}
+
+func (fe *frontendServer) addRatingHandler(w http.ResponseWriter, r *http.Request) {
+	log := r.Context().Value(ctxKeyLog{}).(logrus.FieldLogger)
+	id := mux.Vars(r)["id"]
+	value, err := strconv.ParseFloat(r.FormValue("rating"), 32)
+	if err != nil {
+		renderHTTPError(log, r, w, errors.Wrap(err, "wrong rating format"), http.StatusBadRequest)
+		return
+	}
+	username := r.FormValue("username")
+	comment := r.FormValue("comment")
+	rating := &pb.Rating{
+		ProductId: id,
+		UserId:    username,
+		Value:     float32(value),
+		Comment:   &comment,
+	}
+	_, err = pb.NewRatingServiceClient(fe.ratingSvcConn).AddRatings(r.Context(), &pb.AddRatingsRequest{
+		Rating: rating,
+	})
+	if err != nil {
+		renderHTTPError(log, r, w, errors.Wrap(err, "failed to add rating"), http.StatusInternalServerError)
+		return
 	}
 	referer := r.Header.Get("referer")
 	if referer == "" {
