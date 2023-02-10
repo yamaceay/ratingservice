@@ -16,15 +16,10 @@ package main
 
 import (
 	"context"
-	// "github.com/golang/protobuf/proto"
 	pb "github.com/yamaceay/ratingservice/src/ratingservice/genproto"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 	"testing"
-	"fmt"
-	"proto"
-	"reflect"
+	"github.com/golang/protobuf/proto"
 )
 
 func TestServer(t *testing.T) {
@@ -45,26 +40,34 @@ func TestServer(t *testing.T) {
 	}
 	parsedRatings, _ := parseRatings()
 	want := parsedRatings["OLJCESPC7Z"]
-	fmt.Printf("Wanted parsed from ratings: %v", want)
-	fmt.Printf("Type of want %v", reflect.TypeOf(want))
-	fmt.Printf("Type of got %v", reflect.TypeOf(got))
 
-	if proto.Equal(got, want[0]){
-		fmt.Print("This was correct")
+	for i, _ := range got.Ratings {
+		if !proto.Equal(got.Ratings[i], want[i]) {
+			t.Errorf("\n%v\n%v\n", got.Ratings[i], want[i])
+		}
 	}
 
-	if want, _ := parseRatings(); 1 == 1{
-		t.Errorf("got %v, want %v", got, want)
-	}
 	got1, err1 := client.GetRatings(ctx, &pb.GetRatingsRequest{ProductId: "66VCHSJNUP"})
+	parsedRatings1, _ := parseRatings()
+	want1 := parsedRatings1["66VCHSJNUP"]
 	if err1 != nil {
 		t.Fatal(err1)
 	}
-	if want1, _ := parseRatings(); 1 == 1{
-		t.Errorf("got %v, want %v", got1, want1)
+	for i, _ := range got1.Ratings {
+		if !proto.Equal(got1.Ratings[i], want1[i]) {
+			t.Errorf("\n%v\n%v\n", got1.Ratings[i], want1[i])
+		}
 	}
-	_, err = client.GetRatings(ctx, &pb.GetRatingsRequest{ProductId: "N/A"})
-	if got, want := status.Code(err), codes.OK; got != want {
-		t.Errorf("got %s, want %s", got, want)
+
+	got2, err2 := client.GetRatings(ctx, &pb.GetRatingsRequest{ProductId: "N/A"})
+	parsedRatings2, _ := parseRatings()
+	want2 := parsedRatings2["N/A"]
+	if err2 != nil {
+		t.Fatal(err2)
+	}
+	for i, _ := range got2.Ratings {
+		if !proto.Equal(got2.Ratings[i], want2[i]) {
+			t.Errorf("\n%v\n%v\n", got2.Ratings[i], want2[i])
+		}
 	}
 }
