@@ -69,6 +69,10 @@ gcloud services enable monitoring.googleapis.com \
 
         kubectl get service frontend-external
 
+5. Do not forget to delete the cluster after testing :)
+        
+        gcloud container clusters delete demo --zone=us-central1-a
+
 
 ## Option 2 - Local Cluster 
 
